@@ -1,0 +1,74 @@
+﻿@using Website_BanHang.Models
+@model List<Giohang>
+
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th></th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td></td>
+                                                <td><a href="#"><img src="~/image/@item.sAnhBia" alt="img"></a></td>
+                                                <td><a class="aa-cart-title" href="#">@item.sTenSP</a></td>
+                                                @using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMaSP = item.iMaSP }))
+                                                {
+                                                    <td><input type="number" class="aa-cart-quantity" name="txtSoluong" value="@item.iSoluong"></td>
+                                                    <td>@String.Format("{0:0,0}", @item.dDonGia)</td>
+                                                    <td>@Html.ActionLink("Xóa", "XoaGiohang", new { @iMaSP = item.iMaSP })</td>
+                                                    <td><a href="@Url.Action("Details","Home", new { id=item.iMaSP})">Xem chi tiết</a></td>
+                                                    <td><input type="submit" value="Cập nhật"></input></td>
+
+                                                }
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <!-- Cart Total view -->
+                        <div class="cart-view-total">
+                            <h4>Tổng đơn hàng</h4>
+                            <table class="aa-totals-table">
+                                <tbody>
+                                    <tr>
+                                        <th>Số lượng sản phẩm</th>
+                                        <td>@ViewBag.Tongsoluong</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tổng tiền</th>
+                                        <td>@String.Format("{0:0,0}", ViewBag.Tongtien)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="@Url.Action("Dathang","GioHang")" class="aa-cart-view-btn">Thanh toán</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="aa-myaccount">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-myaccount-area">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="aa-myaccount-register">
+                                <h4>Đăng ký thành viên</h4>
+                                <table align="center">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.ValidationSummary(true)
+                                        <tr>
+                                            <td style="height:40px">Họ tên khách hàng:</td>
+                                            <td>
+                                                @Html.TextBox("Hoten")
+                                                @ViewData["Loi1"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:40px">Tên đăng nhập:</td>
+                                            <td>
+                                                @Html.TextBox("TenDangNhap")
+                                                @ViewData["Loi2"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:40px">Mật khẩu:</td>
+                                            <td>
+                                                @Html.Password("Matkhau")
+                                                @ViewData["Loi3"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:40px">Mật khẩu xác nhận:</td>
+                                            <td>
+                                                @Html.Password("XacNhanMatKhau")
+                                                @ViewData["Loi4"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:40px">Số điện thoại:</td>
+                                            <td>@Html.TextBox("DienThoai")</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:40px">Địa chỉ:</td>
+                                            <td>@Html.TextBox("DiaChi")</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button type="submit" class="aa-browse-btn">Đăng kí</button>
+                                            </td>
+                                            <td><p class="aa-lost-password"><a href="@Url.Action("Login","Account")">Đã có tài khoản</a></p></td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

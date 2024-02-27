@@ -1,0 +1,108 @@
+﻿@using Website_BanHang.Models
+@model List<Giohang>
+
+@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DatHang</h2>
+
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th></th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+
+                                                <td><a href="#"><img src="~/image/@item.sAnhBia" alt="img"></a></td>
+                                                <td><a class="aa-cart-title" href="#">@item.sTenSP</a></td>
+                                                @using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMaSP = item.iMaSP }))
+                                                {
+                                                    <td>@item.iSoluong</td>
+                                                    <td>@String.Format("{0:0,0}", @item.dDonGia)</td>
+                                                    <td>@item.dDonGia*@item.iSoluong</td>
+
+                                                }
+                                            </tr>
+
+                                        }
+
+                                    </tbody>
+                                    <tr>
+                                        <th>Số lượng sản phẩm</th>
+                                        <td>@ViewBag.Tongsoluong</td>
+                                        <a href="@Url.Action("Giohang","GioHang")">trở về giỏ hàng</a>
+                                    </tr>
+                                    <tr>
+                                        <th>Tổng tiền</th>
+                                        <td>@String.Format("{0:0,0}", ViewBag.Tongtien)</td>
+                                    </tr>
+                                </table>
+
+                                <h2>Thông tin đơn hàng</h2>
+                                @{
+                                    KhachHang kh = (KhachHang)Session["Taikhoan"];
+
+
+}
+                            <table class="table">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.ValidationSummary(true)
+                                    <tr style="height=50px">
+                                        <td>Họ tên khách hàng: </td>
+                                        <td style="font-weight:bold">@kh.HoTen</td>
+                                    </tr>
+                                    <tr style="height=50px">
+                                        <td>Địa chỉ giao: </td>
+                                        <td style="font-weight:bold">@kh.DiaChi</td>
+                                    </tr>
+                                    <tr style="height=50px">
+                                        <td>Số điện thoại: </td>
+                                        <td style="font-weight:bold">@kh.SDT</td>
+                                    </tr>
+                                    <tr style="height=50px">
+                                        <td>Ngày đặt: </td>
+                                        <td style="font-weight:bold">@DateTime.Now.ToShortDateString()</td>
+                                    </tr>
+                                    <tr style="height=50px">
+                                        <td>Ngày giao: </td>
+                                        
+                                        <td>
+                                            <input  type="date" name="Ngaygiao"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="submit" class="aa-cart-view-btn" value="Xác nhận thanh toán" /></td>
+                                    </tr>
+                                }
+
+                            </table>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

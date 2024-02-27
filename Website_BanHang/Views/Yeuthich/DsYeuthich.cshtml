@@ -1,0 +1,56 @@
+﻿@using Website_BanHang.Models
+@model List<Giohang>
+
+
+@{
+    ViewBag.Title = "DsYeuthich";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DsYeuthich</h2>
+
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Đơn giá</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td><fa class="fa fa-heart"></fa></td>
+                                                <td><a href="#"><img src="~/image/@item.sAnhBia" alt="img"></a></td>
+                                                <td><a class="aa-cart-title" href="#">@item.sTenSP</a></td>
+                                                <td>@String.Format("{0:0,0}", @item.dDonGia)</td>
+                                                <td>@Html.ActionLink("Xóa", "Xoadsyeuthich", new { @iMaSP = item.iMaSP })</td>
+                                                <td><a href="@Url.Action("Details","Home", new { id=item.iMaSP})">Xem chi tiết</a></td>
+                                               
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

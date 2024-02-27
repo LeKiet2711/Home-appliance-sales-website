@@ -1,0 +1,84 @@
+﻿
+@using Website_BanHang.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Website_BanHang.Models.SanPham>
+
+@{
+    ViewBag.Title = "Sanpham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    img{
+        width:120px;
+        height:100px;
+    }
+</style>
+
+<p>
+    @Html.ActionLink("Thêm sản phẩm", "Themmoisanpham")
+</p>
+<table class="table">
+    <tr>
+        <th style="width:200px">
+            Tên sản phẩm
+        </th>
+        <th style="width:100px">
+            Giá bán
+        </th>
+        <th style="width:300px">
+            Mô tả
+        </th>
+        <th style="width:120px">
+            Ảnh bìa
+        </th>
+        <th style="width:120px">
+            Số lượng
+        </th>
+        <th style="width:200px">
+            Loại sản phẩm
+        </th>
+
+        <th style="width:300px"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiaBan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoTa)
+        </td>
+        <td>
+            <img  src="@Url.Content("~/image/"+item.AnhBia)"/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiSanPham.TenLoai)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Suasanpham", new { id=item.MaSP }) |
+            @Html.ActionLink("Chi tiết", "Chitietsanpham", new { id=item.MaSP }) |
+            @Html.ActionLink("Xóa", "Xoasanpham", new { id=item.MaSP })
+        </td>
+    </tr>
+}
+
+</table>
+<div id="aa-product-category">
+    <div class="aa-product-catg-content">
+        <div class="aa-product-catg-pagination">
+            <nav>
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Sanpham", new { page }))
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

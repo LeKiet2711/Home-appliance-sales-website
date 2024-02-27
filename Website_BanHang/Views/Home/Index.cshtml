@@ -1,0 +1,208 @@
+﻿
+@model Website_BanHang.Models.MyViewModel
+
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="aa-product-category">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
+                <div class="aa-product-catg-content">
+                    <div class="aa-product-catg-head">
+                        <div class="aa-product-catg-head-left">
+                            <form action="" class="aa-sort-form">
+                                <label for="">Sort by</label>
+                                <select name="">
+                                    <option value="1" selected="Default">Default</option>
+                                    <option value="2">Name</option>
+                                    <option value="3">Price</option>
+                                    <option value="4">Date</option>
+                                </select>
+                            </form>
+                            <form action="" class="aa-show-form">
+                                <label for="">Show</label>
+                                <select name="">
+                                    <option value="1" selected="12">12</option>
+                                    <option value="2">24</option>
+                                    <option value="3">36</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="aa-product-catg-head-right">
+                            <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
+                            <a id="list-catg" href="#"><span class="fa fa-list"></span></a>
+                        </div>
+                    </div>
+                    <div class="aa-product-catg-body">
+                        <ul class="aa-product-catg">
+                            @foreach (var item in Model.SanPhamData)
+                            {
+                                <li>
+                                    <figure>
+                                        <a class="aa-product-img" href="#"><img src="~/image/@item.AnhBia" alt="" width="250px" height="300px"></a>
+                                        <a class="aa-add-card-btn" href="@Url.Action("ThemGiohang","GioHang", new { @iMaSP=@item.MaSP,@strURL=Request.Url.ToString()})"><span class="fa fa-shopping-cart"></span>Thêm vào giỏ hàng</a>
+                                        <figcaption>
+                                            <h4 class="aa-product-title"><a href="#">@item.TenSP</a></h4>
+                                            <span class="aa-product-price">
+                                                @{int giaMoi = (int)(item.GiaBan) - 200000;}
+                                                @giaMoi VND
+                                            </span><span class="aa-product-price"><del>@item.GiaBan</del></span>
+                                            <p class="aa-product-descrip">@item.MoTa.</p>
+                                        </figcaption>
+                                    </figure>
+
+                                    <div class="aa-product-hvr-content">
+                                        <a href="@Url.Action("Themdsyeuthich","Yeuthich", new { @iMaSP=@item.MaSP,@strURL=Request.Url.ToString()})" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                        @*<a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>*@
+                                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal-@item.MaSP"><span class="fa fa-search"></span></a>
+                                    </div>
+                                    <!-- product badge -->
+                                    <span class="aa-badge aa-sale" href="#">SALE!</span>
+                                </li>
+
+
+                                <div class="modal fade" id="quick-view-modal-@item.MaSP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <div class="row">
+                                                    <!-- Modal view slider -->
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="aa-product-view-slider">
+                                                            <div class="simpleLens-gallery-container" id="demo-1">
+                                                                <div class="simpleLens-container">
+                                                                    <div class="simpleLens-big-image-container">
+                                                                        
+                                                                          <img src="~/image/@item.AnhBia" class="simpleLens-big-image"  width="250px" height="300px">
+                                                                       
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- Modal view content -->
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="aa-product-view-content">
+                                                            <h3>@item.TenSP</h3>
+                                                            <div class="aa-price-block">
+                                                                <span class="aa-product-view-price">@item.GiaBan</span>
+                                                                <p class="aa-product-avilability">Trạng thái: <span>Còn hàng</span></p>
+                                                            </div>
+                                                            <p>@item.MoTa</p>
+
+                                                            <div class="aa-prod-view-bottom">
+                                                                <a href="@Url.Action("Details","Home", new { id=item.MaSP})" class="aa-add-to-cart-btn">Xem chi tiết</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div>
+                            }
+
+
+
+                        </ul>
+                        <!-- quick view modal -->
+                        <!-- / quick view modal -->
+                    </div>
+                    <div class="aa-product-catg-pagination">
+                        <nav>
+                                <div class="pager">
+                                    @Html.PagedListPager(Model.SanPhamPagedList, page => Url.Action("Index", new { page }))
+                                </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
+                <aside class="aa-sidebar">
+                    <!-- single sidebar -->
+                    <div class="aa-sidebar-widget">
+                        <h3>Category</h3>
+                        <ul class="aa-catg-nav">
+                            @foreach (var item in Model.LoaiSanPhamData)
+                            {
+                                <li><a href="@Url.Action("SpTungLoai","Home", new { id=item.MaLoaiSP})">@item.TenLoai</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- single sidebar -->
+                    <!-- single sidebar -->
+                    <div class="aa-sidebar-widget">
+                        <h3>Sản phẩm nhiều lượt xem</h3>
+                        <div class="aa-recently-views">
+                            <ul>
+                                <li>
+                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="~/image/12.jpg"></a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="#">Product Name</a></h4>
+                                        <p>1 x 1200000</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="~/image/22.jpg"></a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="#">Product Name</a></h4>
+                                        <p>1 x 1600000</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="~/image/32.jpg"></a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="#">Product Name</a></h4>
+                                        <p>1 x 2200000</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- single sidebar -->
+                    <div class="aa-sidebar-widget">
+                        <h3>Sản phẩm hot</h3>
+                        <div class="aa-recently-views">
+                            <ul>
+                                <li>
+                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="~/image/42.jpg"></a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="#">Product Name</a></h4>
+                                        <p>1 x 5200000</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="~/image/19.jpg"></a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="#">Product Name</a></h4>
+                                        <p>1 x 6000000</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="~/image/28.jpg"></a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="#">Product Name</a></h4>
+                                        <p>1 x 45000000</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+
+        </div>
+    </div>
+</section>

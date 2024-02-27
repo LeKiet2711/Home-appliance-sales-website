@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link href="./font/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="./font/fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="./font/fontawesome/css/solid.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="containerr">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <h1>Đăng nhập</h1>
+            <div class="box">
+                <input name="TaikhoanAdmin" type="text" placeholder="Tên đăng nhập" required>
+                @ViewData["Loi1"]
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="box">
+                <input name="MatkhauAdmin" type="password" placeholder="Mật khẩu" required>
+                @ViewData["Loi2"]
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        }
+    </div>
+    <script src="~/Scripts/jv.js"></script>
+</body>
+
+</html>

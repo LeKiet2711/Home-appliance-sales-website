@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="aa-myaccount">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-myaccount-area">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="aa-myaccount-login">
+                                <h4>Đăng nhập</h4>
+                                <table align="center">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.ValidationSummary(true)
+                                      
+                                        <tr>
+                                            <td style="height:40px">Tên đăng nhập:</td>
+                                            <td>
+                                                @Html.TextBox("TenDangNhap")
+                                                @ViewData["Loi1"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:40px">Mật khẩu:</td>
+                                            <td>
+                                                @Html.Password("Matkhau")
+                                                @ViewData["Loi2"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="submit" class="aa-browse-btn">Đăng nhập</button>
+                                            <td>
+                                                <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+                                            </td>
+                                            <td><p class="aa-lost-password"><a href="@Url.Action("Register","Account")">Chưa có tài khoản?</a></p></td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
