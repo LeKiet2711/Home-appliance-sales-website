@@ -6,3 +6,4 @@
 <p>2.Mở chương trình và đổi file dbQLBanHang.dbml thành cơ sở dữ liệu đã đọc từ file bacpac</p>
 <p>3.Khởi chạy chương trình</p>
 
+<p><b>Lưu ý: Tải các tool như LINQ TO SQL, ASP.NET and web development,...</b></p>
